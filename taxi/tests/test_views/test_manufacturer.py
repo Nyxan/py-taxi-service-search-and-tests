@@ -24,10 +24,11 @@ class PrivateManufacturer(TestCase):
             password="<PASSWORD>",
         )
         self.client.force_login(self.user)
+        self.manufacturer = Manufacturer.objects.create(
+            name="Test Manufacturer", country="Test Country"
+        )
 
     def test_retrieve_manufacturer(self):
-        Manufacturer.objects.create(name="BOSK")
-        Manufacturer.objects.create(name="BMW")
         response = self.client.get(MANUFACTURER_URL)
         self.assertEqual(response.status_code, 200)
         manufacturer = Manufacturer.objects.all()
